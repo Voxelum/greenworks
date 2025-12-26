@@ -61,8 +61,10 @@ SteamClient::SteamClient()
       OnP2PSessionConnectFail_(this, &SteamClient::OnP2PSessionConnectFail),
       OnLobbyChatMsg_(this, &SteamClient::OnLobbyChatMsg),
       OnLobbyChatUpdate_(this, &SteamClient::OnLobbyChatUpdate),
-      OnValidateAuthTicketResponse_(this, &SteamClient::OnValidateAuthTicketResponse),
-      OnSteamNetConnectionStatusChanged_(this, &SteamClient::OnSteamNetConnectionStatusChanged) {}
+      OnValidateAuthTicketResponse_(this,
+                                     &SteamClient::OnValidateAuthTicketResponse),
+      OnSteamNetConnectionStatusChanged_(
+          this, &SteamClient::OnSteamNetConnectionStatusChanged) {}
 
 SteamClient::~SteamClient() {
   for (size_t i = 0; i < observer_list_.size(); ++i) {
