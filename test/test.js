@@ -155,6 +155,54 @@ describe('greenworks API', function () {
     });
   });
 
+  describe('New Networking APIs', function () {
+    it('Should have networking sockets functions', function () {
+      assert(typeof greenworks.createListenSocketIP === 'function');
+      assert(typeof greenworks.connectByIPAddress === 'function');
+      assert(typeof greenworks.connectP2P === 'function');
+      assert(typeof greenworks.acceptConnection === 'function');
+      assert(typeof greenworks.closeConnection === 'function');
+      assert(typeof greenworks.sendMessageToConnection === 'function');
+      assert(typeof greenworks.receiveMessagesOnConnection === 'function');
+      assert(typeof greenworks.getConnectionInfo === 'function');
+      assert(typeof greenworks.getQuickConnectionStatus === 'function');
+      assert(typeof greenworks.runNetworkingCallbacks === 'function');
+    });
+
+    it('Should have networking messages functions', function () {
+      assert(typeof greenworks.sendMessageToUser === 'function');
+      assert(typeof greenworks.receiveMessagesOnChannel === 'function');
+      assert(typeof greenworks.acceptSessionWithUser === 'function');
+      assert(typeof greenworks.closeSessionWithUser === 'function');
+      assert(typeof greenworks.getSessionConnectionInfo === 'function');
+    });
+
+    it('Should have networking utils functions', function () {
+      assert(typeof greenworks.getLocalTimestamp === 'function');
+      assert(typeof greenworks.setGlobalConfigValueInt32 === 'function');
+      assert(typeof greenworks.setGlobalConfigValueFloat === 'function');
+      assert(typeof greenworks.setConnectionConfigValueInt32 === 'function');
+      assert(typeof greenworks.checkPingDataUpToDate === 'function');
+      assert(typeof greenworks.getPOPCount === 'function');
+      assert(typeof greenworks.getPOPList === 'function');
+    });
+
+    it('Should have networking constants', function () {
+      assert(greenworks.NetworkingSendFlags);
+      assert(typeof greenworks.NetworkingSendFlags.Reliable === 'number');
+      assert(typeof greenworks.NetworkingSendFlags.Unreliable === 'number');
+      
+      assert(greenworks.NetworkingConnectionState);
+      assert(typeof greenworks.NetworkingConnectionState.Connected === 'number');
+      
+      assert(greenworks.NetworkingDebugOutputType);
+      assert(typeof greenworks.NetworkingDebugOutputType.Warning === 'number');
+      
+      assert(greenworks.NetworkingConfigValue);
+      assert(typeof greenworks.NetworkingConfigValue.TimeoutInitial === 'number');
+    });
+  });
+
   describe('getFriends', function () {
     it('Should get successfully', function (done) {
       assert(greenworks.FriendFlags);
