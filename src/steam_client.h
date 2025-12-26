@@ -59,6 +59,10 @@ class SteamClient {
                                    EAuthSessionResponse m_eAuthSessionResponse,
                                    CSteamID m_OwnerSteamID) = 0;
 
+    // New networking callbacks
+    virtual void OnSteamNetConnectionStatusChanged(
+        SteamNetConnectionStatusChangedCallback_t *pInfo) = 0;
+
     virtual ~Observer() {}
   };
 
@@ -130,6 +134,11 @@ class SteamClient {
 
 
   STEAM_CALLBACK(SteamClient, OnValidateAuthTicketResponse, ValidateAuthTicketResponse_t, OnValidateAuthTicketResponse_);
+
+  // New networking callbacks
+  STEAM_CALLBACK(SteamClient, OnSteamNetConnectionStatusChanged,
+                 SteamNetConnectionStatusChangedCallback_t,
+                 OnSteamNetConnectionStatusChanged_);
 };
 
 }  // namespace greenworks

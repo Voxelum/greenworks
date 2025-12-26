@@ -61,6 +61,9 @@ class SteamEvent : public greenworks::SteamClient::Observer {
                          EAuthSessionResponse m_eAuthSessionResponse,
                          CSteamID m_OwnerSteamID) override;
 
+  void OnSteamNetConnectionStatusChanged(
+      SteamNetConnectionStatusChangedCallback_t *pInfo) override;
+
 private:
   const Nan::Persistent<v8::Object>& persistent_steam_events_;
 };

@@ -45,4 +45,14 @@ if (greenworks.init())
 * [Utils](utils.md)
 * [Workshop](workshop.md)
 * [Matchmaking](matchmaking.md)
-* [P2P](p2p.md)
+* [P2P](p2p.md) - **Deprecated: Use Networking APIs instead**
+
+## Networking APIs (New)
+
+The following modern networking APIs replace the deprecated P2P API:
+
+* [Networking Sockets](networking-sockets.md) - Connection-oriented networking with ISteamNetworkingSockets
+* [Networking Messages](networking-messages.md) - Connectionless message-oriented networking with ISteamNetworkingMessages
+* [Networking Utils](networking-utils.md) - Configuration and utilities with ISteamNetworkingUtils
+
+**Note:** The old P2P API is deprecated in newer Steam SDK versions. Please migrate to the new Networking APIs for future compatibility.

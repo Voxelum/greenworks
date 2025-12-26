@@ -294,4 +294,38 @@ void SteamEvent::OnValidateAuthTicketResponse(CSteamID m_SteamID,
   ar.runInAsyncScope(Nan::New(persistent_steam_events_), "on", 4, argv);
 }
 
+void SteamEvent::OnSteamNetConnectionStatusChanged(
+    SteamNetConnectionStatusChangedCallback_t *pInfo) {
+  Nan::HandleScope scope;
+  
+  v8::Local<v8::Object> infoObj = Nan::New<v8::Object>();
+  
+  Nan::Set(infoObj, Nan::New("connection").ToLocalChecked(),
+           Nan::New(static_cast<uint32_t>(pInfo->m_hConn)));
+  Nan::Set(infoObj, Nan::New("oldState").ToLocalChecked(),
+           Nan::New(pInfo->m_eOldState));
+  Nan::Set(infoObj, Nan::New("state").ToLocalChecked(),
+           Nan::New(pInfo->m_info.m_eState));
+  Nan::Set(infoObj, Nan::New("endReason").ToLocalChecked(),
+           Nan::New(pInfo->m_info.m_eEndReason));
+  Nan::Set(infoObj, Nan::New("connectionDescription").ToLocalChecked(),
+           Nan::New(pInfo->m_info.m_szConnectionDescription).ToLocalChecked());
+  Nan::Set(infoObj, Nan::New("endDebug").ToLocalChecked(),
+           Nan::New(pInfo->m_info.m_szEndDebug).ToLocalChecked());
+  
+  // Get Steam ID if available
+  CSteamID steamID;
+  if (pInfo->m_info.m_identityRemote.GetSteamID(&steamID)) {
+    Nan::Set(infoObj, Nan::New("steamIDRemote").ToLocalChecked(),
+             Nan::New(std::to_string(steamID.ConvertToUint64())).ToLocalChecked());
+  }
+  
+  v8::Local<v8::Value> argv[] = {
+      Nan::New("steam-net-connection-status-changed").ToLocalChecked(),
+      infoObj
+  };
+  Nan::AsyncResource ar("greenworks:SteamEvent.OnSteamNetConnectionStatusChanged");
+  ar.runInAsyncScope(Nan::New(persistent_steam_events_), "on", 2, argv);
+}
+
 } // namespace greenworks
